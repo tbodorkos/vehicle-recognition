@@ -1,0 +1,43 @@
+﻿@page "/"
+
+<div class="row">
+    <h1>Hello!</h1>
+    <p>
+        This is a learning application for me to try out <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor" target="_blank">Blazor</a>, <a href="https://dotnet.microsoft.com/apps/machinelearning-ai/ml-dotnet" target="_blank">ML.NET</a> and <a href="https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview?tabs=csharp" target="_blank">Durable Functions</a>.<br />
+        <i>(Notes: The frontend project is only for testing connection between Blazor Web App and Functions/APIs, so no design applied.)</i>
+    </p>
+</div>
+<div class="row">
+
+    <h2>How does it work?</h2>
+    <p>
+        The application tries to predict if an image contains a train, a car or a ship.
+        <ol>
+            <li>At first, you have to find an image on the internet, and get its URL.</li>
+            <li>Then you can paste it into the input field of Recognition menu.</li>
+            <li>This step invokes the function app and will run the train and prediction.</li>
+            <li>The prediction result will be shown on site.</li>
+        </ol>
+    </p>
+</div>
+
+<div class="row">
+    <p>
+        Train example URL: https://www.bud.hu/file/slides/2/2794/fe_780_454_mav_talent.jpg<br />
+        Car example URL: https://images.cnbctv18.com/wp-content/uploads/2023/02/04-BUGATTI_CHIRON-Profilee-1-780x438.jpg<br />
+        Ship example URL: https://c.ndtvimg.com/2022-12/6pldccqo_cruise-ship-mv-narrative-650_625x300_23_December_22.jpg<br />
+    </p>
+</div>
+
+<a href="/recognition" class="btn btn-primary">Recognition</a>
+<br />
+<br />
+
+<div class="row">
+    <h3>TODO</h3>
+    <p>
+        <ol>
+            <li>Handle error when invalid image input has been pasted.</li>
+        </ol>
+    </p>
+</div>

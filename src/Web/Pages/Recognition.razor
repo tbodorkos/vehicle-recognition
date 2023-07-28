@@ -1,0 +1,81 @@
+﻿@page "/recognition"
+
+@using Web.Data;
+@using Core.Entities;
+@using Core.Entities.Prediction
+@inject IRecognizerService _recognizerService
+
+<div class="row">
+    <h1>Recognition</h1>
+</div>
+
+<div class="row">
+    @if (!string.IsNullOrEmpty(status?.ErrorMessage))
+    {
+        <text>
+            <div class="col-12 alert alert-danger" role="alert">
+                <strong>PREDICTION ERROR!</strong>
+                <hr>
+                <p class="mb-0">
+                    @status.ErrorMessage
+                </p>
+            </div>
+        </text>
+    }
+    @if (!string.IsNullOrEmpty(predictionResult?.Output?.Prediction))
+    {
+        <text>
+            <div class="col-12 alert alert-success" role="alert">
+                <strong>PREDICTION SUCCEEDED!</strong>
+                <hr>
+                <p class="mb-0">
+                    @predictionResult.Output.Prediction
+                </p>
+            </div>
+        </text>
+    }
+</div>
+<div class="row">
+    @if (!string.IsNullOrEmpty(Url))
+    {
+        <text>
+            <h3>Predictable image:</h3>
+            <div class="col-12" style="text-align:center">
+                <img src=@Url alt="Predictable image" style="max-height:400px" />
+            </div>
+        </text>
+    }
+</div>
+
+<form>
+    <div class="form-group col-md-6">
+        <label for="url" class="mb-2">Url</label>
+        <input type="text" id="url" placeholder="Paste image url" class="form-control mb-2" value="@Url" @onchange="@((args) => Url = args?.Value?.ToString()!)" />
+    </div>
+    <input type="button" class="btn btn-primary" @onclick="Predict" value="Predict" />
+</form>
+
+@code
+{
+    public string Url { get; set; } = null!;
+    private Status status = null!;
+    private PredictionResult predictionResult = null!;
+
+    private async Task Predict()
+    {
+        Clear();
+
+        status = await _recognizerService.Predict(Url);
+        if (string.IsNullOrEmpty(status.ErrorMessage) && !string.IsNullOrEmpty(status.StatusQueryGetUri))
+        {
+            predictionResult = await _recognizerService.GetPredictionResult(status.StatusQueryGetUri);
+            status = null!;
+        }
+    }
+
+    private void Clear()
+    {
+        status = null!;
+        predictionResult = null!;
+    }
+}
