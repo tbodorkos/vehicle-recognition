@@ -1,5 +1,6 @@
 # Vehicle Recognition
 This is a learning application for me to try out Blazor, ML.NET Durable Functions
+
 _Notes: The frontend project is only for testing connection between Blazor Web App and Functions/APIs, so no design applied._
 
 ### How does it work?
